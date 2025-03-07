@@ -1,0 +1,198 @@
+name: Model Deployment
+
+on:
+  workflow_run:
+    workflows: ["Model Training and Evaluation"]
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.service_url }}
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    
+    - name: Cache pip packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Download model artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: model-artifacts
+        path: artifacts
+    
+    - name: Set up MLFlow and dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r credit_risk_model/requirements.txt
+        pip install mlflow tensorflow prometheus_client
+      env:
+        MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
+    
+    - name: Start canary deployment
+      id: canary
+      run: |
+        python -c "
+        import mlflow
+        import os
+        import time
+        
+        # Set up MLFlow
+        mlflow.set_tracking_uri(os.environ['MLFLOW_TRACKING_URI'])
+        
+        # Get the best model
+        best_run = mlflow.search_runs(
+            order_by=['metrics.val_accuracy DESC'],
+            max_results=1
+        ).iloc[0]
+        
+        # Register the model in staging
+        model_uri = f'runs:/{best_run.run_id}/best_tuned_model'
+        model_version = mlflow.register_model(
+            model_uri,
+            'credit_risk_model',
+            tags={'stage': 'staging'}
+        )
+        
+        # Start canary deployment with 10% traffic
+        with open('deploy_config.json', 'w') as f:
+            f.write('{\"canary_weight\": 0.1, \"model_version\": \"' + str(model_version.version) + '\"}')
+        
+        print('::set-output name=model_version::' + str(model_version.version))
+        "
+      env:
+        MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
+        
+    - name: Monitor canary health
+      id: monitor
+      run: |
+        python -c "
+        import time
+        import json
+        import requests
+        import sys
+        
+        # Monitor canary deployment for 10 minutes
+        start_time = time.time()
+        monitoring_duration = 600  # 10 minutes
+        check_interval = 60  # 1 minute
+        
+        while time.time() - start_time < monitoring_duration:
+            try:
+                # Get metrics from monitoring endpoint
+                response = requests.get('http://localhost:8000/metrics')
+                metrics = response.json()
+                
+                # Check if error rate is below threshold
+                if metrics.get('error_rate', 0) > 0.05:  # 5% error threshold
+                    print('Canary deployment failed: High error rate')
+                    sys.exit(1)
+                    
+                # Check if latency is below threshold
+                if metrics.get('p95_latency', 0) > 500:  # 500ms threshold
+                    print('Canary deployment failed: High latency')
+                    sys.exit(1)
+                
+            except Exception as e:
+                print(f'Error monitoring canary: {str(e)}')
+                
+            time.sleep(check_interval)
+            
+        print('Canary deployment monitoring successful')
+        "
+      env:
+        MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
+        
+    - name: Complete deployment
+      if: success()
+      run: |
+        python -c "
+        import mlflow
+        import os
+        import json
+        
+        # Set up MLFlow
+        mlflow.set_tracking_uri(os.environ['MLFLOW_TRACKING_URI'])
+        
+        # Get model version from canary deployment
+        with open('deploy_config.json', 'r') as f:
+            config = json.load(f)
+        
+        # Transition model to production
+        client = mlflow.tracking.MlflowClient()
+        client.transition_model_version_stage(
+            name='credit_risk_model',
+            version=config['model_version'],
+            stage='production'
+        )
+        
+        # Archive previous production version
+        production_versions = client.get_latest_versions('credit_risk_model', stages=['production'])
+        for version in production_versions:
+            if version.version != config['model_version']:
+                client.transition_model_version_stage(
+                    name='credit_risk_model',
+                    version=version.version,
+                    stage='archived'
+                )
+        "
+      env:
+        MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
+        
+    - name: Rollback on failure
+      if: failure()
+      run: |
+        python -c "
+        import mlflow
+        import os
+        import json
+        
+        # Set up MLFlow
+        mlflow.set_tracking_uri(os.environ['MLFLOW_TRACKING_URI'])
+        
+        # Get model version from canary deployment
+        with open('deploy_config.json', 'r') as f:
+            config = json.load(f)
+        
+        # Transition failed model to archived
+        client = mlflow.tracking.MlflowClient()
+        client.transition_model_version_stage(
+            name='credit_risk_model',
+            version=config['model_version'],
+            stage='archived'
+        )
+        
+        print('Rolled back failed deployment')
+        "
+      env:
+        MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
+    
+    - name: Notify deployment status
+      if: always()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+        text: |
+          Deployment ${{ job.status }}
+          ${{ steps.canary.outputs.model_version != '' && format('Model Version: {0}', steps.canary.outputs.model_version) || '' }}
+          ${{ job.status == 'failure' && '⚠️ Deployment failed - Model rolled back' || '' }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 
