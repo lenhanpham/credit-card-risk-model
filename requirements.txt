@@ -2,7 +2,7 @@
 tensorflow==2.18.0
 scikit-learn==1.3.2
 pandas==2.1.3
-numpy==1.24.3
+numpy==2.0.2
 keras-tuner==1.4.6
 silence_tensorflow==1.2.3 
 
