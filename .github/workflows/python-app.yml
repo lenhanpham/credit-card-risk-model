@@ -25,24 +25,24 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install flake8 pytest pytest-cov black isort
-        pip install -r credit_risk_model/requirements.txt
+        pip install -r credit-card-risk-model/requirements.txt
     
     - name: Check code formatting with Black
       run: |
-        black --check credit_risk_model/src
+        black --check credit-card-risk-model/src
     
     - name: Check import sorting with isort
       run: |
-        isort --check-only credit_risk_model/src
+        isort --check-only credit-card-risk-model/src
     
     - name: Lint with flake8
       run: |
-        flake8 credit_risk_model/src --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 credit_risk_model/src --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        flake8 credit-card-risk-model/src --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 credit-card-risk-model/src --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     
     - name: Run unit tests with pytest
       run: |
-        pytest credit_risk_model/tests --cov=credit_risk_model/src --cov-report=xml
+        pytest credit-card-risk-model/tests --cov=credit-card-risk-model/src --cov-report=xml
     
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3

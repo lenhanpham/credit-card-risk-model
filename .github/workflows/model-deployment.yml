@@ -41,7 +41,7 @@ jobs:
     - name: Set up MLFlow and dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r credit_risk_model/requirements.txt
+        pip install -r credit-card-risk-model/requirements.txt
         pip install mlflow tensorflow prometheus_client
       env:
         MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
@@ -67,7 +67,7 @@ jobs:
         model_uri = f'runs:/{best_run.run_id}/best_tuned_model'
         model_version = mlflow.register_model(
             model_uri,
-            'credit_risk_model',
+            'credit-card-risk-model',
             tags={'stage': 'staging'}
         )
         
@@ -138,17 +138,17 @@ jobs:
         # Transition model to production
         client = mlflow.tracking.MlflowClient()
         client.transition_model_version_stage(
-            name='credit_risk_model',
+            name='credit-card-risk-model',
             version=config['model_version'],
             stage='production'
         )
         
         # Archive previous production version
-        production_versions = client.get_latest_versions('credit_risk_model', stages=['production'])
+        production_versions = client.get_latest_versions('credit-card-risk-model', stages=['production'])
         for version in production_versions:
             if version.version != config['model_version']:
                 client.transition_model_version_stage(
-                    name='credit_risk_model',
+                    name='credit-card-risk-model',
                     version=version.version,
                     stage='archived'
                 )
@@ -174,7 +174,7 @@ jobs:
         # Transition failed model to archived
         client = mlflow.tracking.MlflowClient()
         client.transition_model_version_stage(
-            name='credit_risk_model',
+            name='credit-card-risk-model',
             version=config['model_version'],
             stage='archived'
         )

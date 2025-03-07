@@ -20,23 +20,23 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r credit_risk_model/requirements.txt
+        pip install -r credit-card-risk-model/requirements.txt
     
     - name: Train model
       run: |
-        python -m credit_risk_model.src.main --mode train --track_with_mlflow
+        python -m credit-card-risk-model.src.main --mode train --track_with_mlflow
       env:
         MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
     
     - name: Evaluate model
       run: |
-        python -m credit_risk_model.src.main --mode mlflow_best --mlflow_metric val_accuracy
+        python -m credit-card-risk-model.src.main --mode mlflow_best --mlflow_metric val_accuracy
       env:
         MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
     
     - name: Generate model report
       run: |
-        python -m credit_risk_model.src.main --mode visualize --track_with_mlflow
+        python -m credit-card-risk-model.src.main --mode visualize --track_with_mlflow
       env:
         MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
     
