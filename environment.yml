@@ -39,7 +39,7 @@ dependencies:
     
     # Core ML packages
     - keras-tuner==1.4.6
-    - silence-tensorflow==1.2.1
+    - silence_tensorflow==1.2.1
     - mlflow==2.9.0
     
     # API packages
