@@ -1,15 +1,14 @@
 # Core ML Dependencies
 tensorflow==2.18.0
-scikit-learn==1.3.2
+scikit-learn==1.4.2
 pandas==2.1.3
-numpy==2.0.2
-keras-tuner==1.4.6
-silence_tensorflow==1.2.3 
+numpy==1.26.4
+keras-tuner==1.4.7
 
 # Visualization
-matplotlib==3.8.2
-seaborn==0.13.0
-plotly==5.18.0
+matplotlib==3.7.5
+seaborn==0.13.2
+plotly==5.24.1
 
 # MLFlow & Experiment Tracking
 mlflow==2.9.0
