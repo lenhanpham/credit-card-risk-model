@@ -13,7 +13,7 @@ plotly==5.18.0
 
 # MLFlow & Experiment Tracking
 mlflow==2.9.0
-tensorboard==2.15.1
+tensorboard==2.18.0
 
 # API & Serving
 flask==3.0.0
