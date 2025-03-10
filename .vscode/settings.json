@@ -1,0 +1,9 @@
+{
+    "python.analysis.extraPaths": ["${workspaceFolder}"],
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.useLibraryCodeForTypes": true,
+    "terminal.integrated.env.windows": {
+      "PYTHONPATH": "${workspaceFolder}"
+    }
+  }
+  

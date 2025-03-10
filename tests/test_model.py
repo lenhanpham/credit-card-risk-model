@@ -6,10 +6,10 @@ import numpy as np
 import pytest
 
 # Add the project root directory to the Python path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
-from credit_risk_model.src.data.make_dataset import CreditDataPreprocessor
-from credit_risk_model.src.models.model import CreditRiskModel
+from src.data.make_dataset import CreditDataPreprocessor
+from src.models.model import CreditRiskModel
 
 
 class TestCreditRiskModel(unittest.TestCase):

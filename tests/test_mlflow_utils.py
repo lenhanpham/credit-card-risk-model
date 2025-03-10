@@ -2,7 +2,7 @@ import pytest
 import mlflow
 import tensorflow as tf
 import numpy as np
-from credit_risk_model.src.utils.mlflow_utils import (
+from src.utils.mlflow_utils import (
     setup_mlflow, MLFlowCallback, log_model_parameters,
     log_model_metrics, log_model, log_training_history,
     start_run, end_run, get_best_run

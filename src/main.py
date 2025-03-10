@@ -8,22 +8,22 @@ from datetime import datetime
 import mlflow
 
 # Add the project root directory to the Python path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
-from credit_risk_model.src.data.make_dataset import load_data, create_tf_datasets, CreditDataPreprocessor
-from credit_risk_model.src.models.train_model import train_model
-from credit_risk_model.src.models.predict_model import predict, load_model
-from credit_risk_model.src.visualization.visualize import (
+from src.data.make_dataset import load_data, create_tf_datasets, CreditDataPreprocessor
+from src.models.train_model import train_model
+from src.models.predict_model import predict, load_model
+from src.visualization.visualize import (
     plot_confusion_matrix, 
     plot_roc_curve, 
     plot_precision_recall_curve, 
     plot_training_history
 )
-from credit_risk_model.src.utils.mlflow_utils import (
+from src.utils.mlflow_utils import (
     start_run, end_run, log_model_metrics, log_training_history,
     get_best_run, register_model, get_model_from_registry, compare_runs
 )
-from credit_risk_model.config.model_config import (
+from config.model_config import (
     DISCRETE_FEATURES, CATEGORICAL_FEATURES, CONTINUOUS_FEATURES,
     BATCH_SIZE, MAX_EPOCHS, RANDOM_SEED,
     HP_MAX_TRIALS, DEFAULT_MODEL_PATH, BEST_TUNED_MODEL_PATH,
@@ -77,7 +77,7 @@ def main():
                         help='Version of the model to use from registry')
     parser.add_argument('--compare_runs_count', type=int, default=5,
                         help='Number of runs to compare')
-    parser.add_argument('--model_name', type=str, default='credit_risk_model',
+    parser.add_argument('--model_name', type=str, default='credit_card_risk_model',
                         help='Name of the model in the registry')
     
     args = parser.parse_args()

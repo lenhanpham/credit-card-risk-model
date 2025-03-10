@@ -15,7 +15,7 @@ from sklearn.metrics import (
 import pandas as pd
 from mlflow.models.signature import infer_signature
 from mlflow.tracking import MlflowClient
-from credit_risk_model.config.model_config import (
+from config.model_config import (
     MLFLOW_TRACKING_URI, MLFLOW_EXPERIMENT_NAME, MLFLOW_TRACKING_ENABLED, MLFLOW_TAGS
 )
 

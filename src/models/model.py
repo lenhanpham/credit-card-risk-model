@@ -5,8 +5,8 @@ import sys
 # Add the project root directory to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..')))
 
-from credit_risk_model.src.utils.preprocessing import LogTransform, Standardize, DiscreteFeatureEncoder
-from credit_risk_model.config.model_config import (
+from src.utils.preprocessing import LogTransform, Standardize, DiscreteFeatureEncoder
+from config.model_config import (
     EMBEDDING_SIZE, DEFAULT_MODEL_PATH
 )
 

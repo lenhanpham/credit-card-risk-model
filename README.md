@@ -1,4 +1,4 @@
-# Credit Risk Model
+# Credit Card Risk Model
 
 This project implements a machine learning model for credit risk assessment using TensorFlow. The model predicts whether a credit applicant is a good or bad credit risk based on various features. The project is developed for large scale dataset with very high accuracy. The project uses MLFlow for experiment tracking and model management, and includes a robust CI/CD pipeline for automated training, testing, and deployment.
 
@@ -9,7 +9,7 @@ The project is underdevelopment and will be updated regularly. Since the project
 The project follows the Cookiecutter Data Science template:
 
 ```
-credit_risk_model/
+credit_card_risk_model/
 │
 ├── config/               # Configuration files
 │   ├── model_config.py   # Model configuration parameters

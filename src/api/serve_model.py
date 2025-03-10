@@ -31,9 +31,9 @@ import psutil
 # Add the project root directory to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..')))
 
-from credit_risk_model.src.data.make_dataset import CreditDataPreprocessor
-from credit_risk_model.src.models.predict_model import load_model, predict
-from credit_risk_model.config.model_config import (
+from src.data.make_dataset import CreditDataPreprocessor
+from src.models.predict_model import load_model, predict
+from config.model_config import (
     DEFAULT_MODEL_PATH, PREPROCESSOR_CONFIG_PATH,
     MLFLOW_TRACKING_ENABLED, MLFLOW_TRACKING_URI
 )

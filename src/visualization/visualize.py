@@ -9,9 +9,9 @@ import argparse
 import json
 
 # Add the project root directory to the Python path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..')))
+#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..')))
 
-from credit_risk_model.config.model_config import (
+from config.model_config import (
     FIGURES_DIR, CONFUSION_MATRIX_PATH, ROC_CURVE_PATH, 
     PRECISION_RECALL_CURVE_PATH, TRAINING_HISTORY_PATH
 )

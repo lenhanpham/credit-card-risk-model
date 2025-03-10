@@ -1,4 +1,4 @@
-name: credit_risk_model
+name: credit_card_risk_model
 channels:
   - conda-forge
   - defaults

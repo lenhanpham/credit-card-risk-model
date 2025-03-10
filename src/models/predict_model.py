@@ -9,12 +9,12 @@ import json
 # Add the project root directory to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..')))
 
-from credit_risk_model.src.data.make_dataset import CreditDataPreprocessor
-from credit_risk_model.src.models.model import CreditRiskModel
-from credit_risk_model.src.utils.mlflow_utils import (
+from src.data.make_dataset import CreditDataPreprocessor
+from src.models.model import CreditRiskModel
+from src.utils.mlflow_utils import (
     start_run, end_run, log_model_metrics
 )
-from credit_risk_model.config.model_config import (
+from config.model_config import (
     DEFAULT_MODEL_PATH, PREPROCESSOR_CONFIG_PATH,
     MLFLOW_TRACKING_ENABLED
 )

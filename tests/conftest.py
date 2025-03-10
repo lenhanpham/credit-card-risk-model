@@ -2,7 +2,7 @@ import pytest
 import pandas as pd
 import numpy as np
 import tensorflow as tf
-from credit_risk_model.src.data.make_dataset import CreditDataPreprocessor
+from src.data.make_dataset import CreditDataPreprocessor
 
 @pytest.fixture
 def sample_data():

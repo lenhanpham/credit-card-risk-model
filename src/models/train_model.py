@@ -12,14 +12,14 @@ import numpy as np
 # Add the project root directory to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..')))
 
-from credit_risk_model.src.data.make_dataset import load_data, create_tf_datasets, CreditDataPreprocessor
-from credit_risk_model.src.models.model import CreditRiskModel
-from credit_risk_model.src.utils.mlflow_utils import (
+from src.data.make_dataset import load_data, create_tf_datasets, CreditDataPreprocessor
+from src.models.model import CreditRiskModel
+from src.utils.mlflow_utils import (
     start_run, end_run, log_model_parameters, log_model_metrics, 
     log_model, log_training_history, MLFlowCallback, 
     register_model, log_data_validation
 )
-from credit_risk_model.config.model_config import (
+from config.model_config import (
     DISCRETE_FEATURES, CATEGORICAL_FEATURES, CONTINUOUS_FEATURES,
     BATCH_SIZE, LEARNING_RATE, MAX_EPOCHS, RANDOM_SEED,
     HP_MAX_TRIALS, HP_EXECUTIONS_PER_TRIAL, HP_DIRECTORY,
