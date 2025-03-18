@@ -8,6 +8,7 @@ The model is trained on the credit-g dataset from OpenML to predict whether a cr
 
 ## Project Structure
 
+```
 credit_risk_prediction/
 ├── .github/
 │   └── workflows/
@@ -36,6 +37,7 @@ credit_risk_prediction/
 ├── main.py                  # Main script to run the pipeline
 ├── requirements.txt         # Project dependencies
 └── README.md                # This file
+```
 
 ## Features
 
