@@ -21,7 +21,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.8'  # Match your project's Python version
+          python-version: '3.8'
 
       # Install dependencies
       - name: Install dependencies
@@ -30,21 +30,27 @@ jobs:
           pip install -r requirements.txt
 
       # Install a linter (e.g., flake8)
-      - name: Install linter
-        run: pip install flake8
+      #- name: Install linter
+      #  run: pip install flake8
 
       # Run linting
       #- name: Lint with flake8
       #  run: |
-      #   flake8 . --max-line-length=120 --exclude=venv,mlruns,hyperparameter_tuning
+      #    flake8 . --max-line-length=120 --exclude=venv,mlruns,hyperparameter_tuning
 
       # Install pytest for running tests
       - name: Install pytest
         run: pip install pytest
 
-      # Run tests from the correct directory
+      # Debug directory structure and Python path
+      - name: Debug environment
+        run: |
+          pwd  # Should print /home/runner/work/credit-card-risk-model/credit-card-risk-model/
+          ls -R  # List directory structure
+          python -c "import sys; print(sys.path)"  # Print Python module search path
+
+      # Run tests
       - name: Run tests
-        working-directory: ./credit-card-risk-model  # Adjust to the inner directory
         run: pytest tests/ -v
 
       # Cache MLflow artifacts (optional)
@@ -58,7 +64,6 @@ jobs:
 
       # Run the main script (optional, limited execution for CI)
       - name: Run main script (limited epochs)
-        working-directory: ./credit-card-risk-model  # Adjust here too
         run: python main.py
         env:
-          EPOCHS_OVERRIDE: 2  # Limit epochs for CI
+          EPOCHS_OVERRIDE: 2
