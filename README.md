@@ -1,6 +1,8 @@
 # Credit Risk Prediction
 
-This project implements a credit risk prediction model using TensorFlow, with hyperparameter tuning via Keras Tuner and experiment tracking using MLflow. The codebase is structured following a modular, cookiecutter-like template for better organization and maintainability.
+This project implements a credit risk prediction model using TensorFlow, with hyperparameter tuning via Keras Tuner and experiment tracking using MLflow. The codebase is structured following a modular, cookiecutter-like template for better organization and maintainability. 
+
+The deep learning logistic model is the final selected model. Through the development process, several algorithms including machining learning and deep learning ones were tested and developed. Only the deep learning logistic model with further feature engineering techniques like embedding for categorical features gave the best model.  
 
 ## Project Overview
 
