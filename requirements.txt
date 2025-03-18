@@ -1,4 +1,4 @@
-tensorflow>=2.10
+tensorflow==2.18.0 
 silence_tensorflow
 scikit-learn
 keras-tuner
