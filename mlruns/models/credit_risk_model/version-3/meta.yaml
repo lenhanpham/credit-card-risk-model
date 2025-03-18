@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1742313765821
+current_stage: None
+description: null
+last_updated_timestamp: 1742313765821
+name: credit_risk_model
+run_id: 3a687beeec8c40e5ae0695190e056194
+run_link: null
+source: file:G:/Books/MachineLearning/ProjectsBeginners/credit_card_mlops/credit_card_cursor/mlruns/673068082099670169/3a687beeec8c40e5ae0695190e056194/artifacts/model
+status: READY
+status_message: null
+storage_location: file:G:/Books/MachineLearning/ProjectsBeginners/credit_card_mlops/credit_card_cursor/mlruns/673068082099670169/3a687beeec8c40e5ae0695190e056194/artifacts/model
+user_id: null
+version: 3

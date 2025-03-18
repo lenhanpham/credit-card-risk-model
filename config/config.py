@@ -38,7 +38,7 @@ MODEL_CONFIG = {
 
 # Training parameters
 TRAINING_CONFIG = {
-    "max_trials": 10,
+    "max_trials": 50,
     "executions_per_trial": 1,
     "patience": 15,
     "min_lr": 1e-6,
