@@ -1,0 +1,15 @@
+artifact_uri: file:G:/Books/MachineLearning/ProjectsBeginners/credit_card_mlops/credit_card_cursor/mlruns/673068082099670169/3f2473f58eba4ef3abb50c8e32bc1280/artifacts
+end_time: 1742308301856
+entry_point_name: ''
+experiment_id: '673068082099670169'
+lifecycle_stage: active
+run_id: 3f2473f58eba4ef3abb50c8e32bc1280
+run_name: credit_risk_model_20250319_013106
+run_uuid: 3f2473f58eba4ef3abb50c8e32bc1280
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1742308266580
+status: 3
+tags: []
+user_id: lenha
