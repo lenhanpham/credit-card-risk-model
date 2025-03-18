@@ -152,6 +152,7 @@ Listed in requirements.txt:
 - **Modify Model**: Adjust architecture in credit_risk_model.py or trainer.py.
 - **Custom Evaluation**: Extend visualization.py.
 - **Add Tests**: Expand tests/ with more test cases.
+- **Model deployment and serving**: The model should be deployed and used to serve the prediction of credit card risk 
 
 ## Troubleshooting
 
