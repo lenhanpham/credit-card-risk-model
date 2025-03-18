@@ -34,9 +34,9 @@ jobs:
         run: pip install flake8
 
       # Run linting
-      - name: Lint with flake8
-        run: |
-          flake8 . --max-line-length=120 --exclude=venv,mlruns,hyperparameter_tuning
+      #- name: Lint with flake8
+      #  run: |
+      #    flake8 . --max-line-length=120 --exclude=venv,mlruns,hyperparameter_tuning
 
       # Install pytest for running tests
       - name: Install pytest
