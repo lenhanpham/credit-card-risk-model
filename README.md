@@ -2,7 +2,7 @@
 
 This project implements a credit risk prediction model using TensorFlow, with hyperparameter tuning via Keras Tuner and experiment tracking using MLflow. The codebase is structured following a modular, cookiecutter-like template for better organization and maintainability. 
 
-The deep learning logistic model is the final selected model. Through the development process, several algorithms including machining learning and deep learning ones were tested and developed. Only the deep learning logistic model with further feature engineering techniques like embedding for categorical features gave the best model.  
+Through the development process, several algorithms including machining learning and deep learning ones were tested and developed. Finally, the deep learning logistic model is selected because the deep learning logistic model with further feature engineering techniques like embedding for categorical features gave the best performance of credit card risk prediction.  Further training model structures can be explored to give better prediction.
 
 ## Project Overview
 
@@ -27,6 +27,7 @@ credit_risk_prediction/
 │   │   └── preprocessing.py      # Data loading and preprocessing
 │   ├── models/
 │   │   ├── __init__.py
+│   │   ├── metrics/
 │   │   └── credit_risk_model.py  # Model definition and custom layers
 │   ├── utils/
 │   │   ├── __init__.py
@@ -91,7 +92,7 @@ python main.py
 - The trained model is saved to models/best_model.keras.
 - Hyperparameter tuning results are stored in hyperparameter_tuning/credit_risk/.
 - MLflow experiment logs are saved to mlruns/.
-- Evaluation plots (ROC, PR curves, confusion matrix) and classification report are displayed and printed.
+- Evaluation plots (ROC, PR curves, confusion matrix) and classification report are saved to metrics/.
 
 3. **Configuration**: Modify parameters in config/config.py to adjust:
 
@@ -110,7 +111,7 @@ This project uses GitHub Actions for continuous integration:
   - Lints the code with flake8.
   - Runs unit tests with pytest.
   - Executes the main script with limited epochs (2) for validation.
-- **Workflow File**: Located at .github/workflows/ci.yml.
+- **Workflow File**: Located at .github/workflows/model_training.yml.
 
 ## Configuration Details
 
@@ -126,7 +127,7 @@ All parameters are defined in config/config.py. Key sections include:
 
 Listed in requirements.txt:
 
-- tensorflow>=2.10
+- tensorflow>=2.18
 - silence_tensorflow
 - scikit-learn
 - keras-tuner
@@ -157,7 +158,7 @@ Listed in requirements.txt:
 ## Troubleshooting
 
 - **Missing Dependencies**: Ensure all packages in requirements.txt are installed.
-- **TensorFlow Errors**: Verify TensorFlow version compatibility (2.10+).
+- **TensorFlow Errors**: Verify TensorFlow version compatibility (2.18+).
 - **MLflow Issues**: Check write permissions for mlruns/.
 - **CI Failures**: Review GitHub Actions logs for specific errors.
 
