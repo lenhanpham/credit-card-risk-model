@@ -27,7 +27,7 @@ def plot_evaluation_metrics(config,y_true, y_pred_prob, y_pred) -> None:
     axes[1].legend(loc="lower left")
 
     plt.tight_layout()
-    plt.savefig(config["PATHS_CONFIG"]["metrics_directory"]+'evaluation_metrics.png')
+    plt.savefig(config["PATHS_CONFIG"]["metrics_directory"] + 'evaluation_metrics.png')
 
     # Confusion Matrix
     cm = confusion_matrix(y_true, y_pred)
@@ -38,7 +38,7 @@ def plot_evaluation_metrics(config,y_true, y_pred_prob, y_pred) -> None:
     plt.title('Confusion Matrix')
     plt.xlabel('Predicted')
     plt.ylabel('Actual')
-    plt.savefig(config["PATHS_CONFIG"]["metrics_directory"]+'confusion_matrix.png')
+    plt.savefig(config["PATHS_CONFIG"]["metrics_directory"] + 'confusion_matrix.png')
     
 
     # Classification Report
