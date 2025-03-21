@@ -38,7 +38,7 @@ MODEL_CONFIG = {
 
 # Training parameters
 TRAINING_CONFIG = {
-    "max_trials": 50,
+    "max_trials": 5,
     "executions_per_trial": 1,
     "patience": 15,
     "min_lr": 1e-6,
@@ -52,5 +52,6 @@ PATHS_CONFIG = {
     "model_save_path": "models/best_model.keras",
     "best_model_checkpoint": "models/best_checkpoint.keras",
     "mlflow_tracking_uri": "file:./mlruns",
-    "mlflow_experiment_name": "credit_risk_prediction"
+    "mlflow_experiment_name": "credit_risk_prediction",
+    "metrics_directory": "models/metrics/"
 }

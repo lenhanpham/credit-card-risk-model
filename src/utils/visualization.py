@@ -3,7 +3,7 @@ import seaborn as sns
 import numpy as np
 from sklearn.metrics import precision_recall_curve, roc_curve, auc, average_precision_score, classification_report, confusion_matrix
 
-def plot_evaluation_metrics(y_true, y_pred_prob, y_pred):
+def plot_evaluation_metrics(config,y_true, y_pred_prob, y_pred) -> None:
     fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
     # ROC Curve
@@ -27,7 +27,7 @@ def plot_evaluation_metrics(y_true, y_pred_prob, y_pred):
     axes[1].legend(loc="lower left")
 
     plt.tight_layout()
-    plt.show()
+    plt.savefig(config["PATHS_CONFIG"]["metrics_directory"]+'evaluation_metrics.png')
 
     # Confusion Matrix
     cm = confusion_matrix(y_true, y_pred)
@@ -38,7 +38,8 @@ def plot_evaluation_metrics(y_true, y_pred_prob, y_pred):
     plt.title('Confusion Matrix')
     plt.xlabel('Predicted')
     plt.ylabel('Actual')
-    plt.show()
+    plt.savefig(config["PATHS_CONFIG"]["metrics_directory"]+'confusion_matrix.png')
+    
 
     # Classification Report
     print(classification_report(y_true, y_pred))

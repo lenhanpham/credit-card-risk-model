@@ -56,7 +56,8 @@ def main():
         y_pred_prob.extend(y_pred_batch)
 
     y_pred = (np.array(y_pred_prob) > 0.5).astype(int).flatten()
-    plot_evaluation_metrics(y_true, y_pred_prob, y_pred)
+    os.makedirs(config["PATHS_CONFIG"]["metrics_directory"], exist_ok=True)
+    plot_evaluation_metrics(config,y_true, y_pred_prob, y_pred)
 
 if __name__ == "__main__":
     main()
